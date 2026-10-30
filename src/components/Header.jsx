@@ -10,7 +10,7 @@ const navLinks = [
   { label: "Top Deals", to: "/#top-picks" },
   { label: "Brands", to: "/" },
   { label: "Blog", to: "/" },
-  { label: "Contact", to: "/" },
+  { label: "Contact", to: "/contact" },
 ];
 
 export default function Header() {
@@ -35,7 +35,9 @@ export default function Header() {
               end
               className={({ isActive }) =>
                 "header__link" +
-                (isActive && link.label === "Home" ? " header__link--active" : "")
+                (isActive && (link.label === "Home" || link.label === "Contact")
+                  ? " header__link--active"
+                  : "")
               }
             >
               {link.label}
