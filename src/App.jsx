@@ -9,8 +9,9 @@ import Checkout from "./pages/Checkout.jsx";
 import OrderConfirmation from "./pages/OrderConfirmation.jsx";
 import TrackOrder from "./pages/TrackOrder.jsx";
 import Profile from "./pages/Profile.jsx";
+import Contact from "./pages/Contact.jsx";
 
-// Root component: shared layout (header + footer) and page routes.
+// Root component: shared layout (header + footer) and page routes
 export default function App() {
   return (
     <CartProvider>
@@ -19,13 +20,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-          {}
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          {}
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/track-order" element={<TrackOrder />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
       <Footer />
