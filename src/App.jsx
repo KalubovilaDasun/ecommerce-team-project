@@ -18,10 +18,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-          {/* Cart පිටුව සඳහා Route එක */}
+          {}
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          {/* අලුත් පිටු 2 සඳහා Routes ලබා දීම */}
+          {}
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/track-order" element={<TrackOrder />} />
         </Routes>

@@ -1,10 +1,12 @@
 // Shared product data used by the home page (and by the product details page).
-// Fields:
-//   id        - unique number, also used in the URL: /product/:id
-//   badge     - optional label shown on the card ("NEW", "BESTSELLER", "SALE")
-//   oldPrice  - optional crossed-out price for sale items
-//   emoji     - placeholder visual (replace with a real `image` URL if you have one)
-//   image     - optional image URL; when set, it is shown instead of the emoji
+import earbudsImg from "../assets/earbuds.png";
+import smartwatchImg from "../assets/smartwatch.png";
+import speakerImg from "../assets/speaker.png";
+import mouseImg from "../assets/mouse.png";
+import powerbankImg from "../assets/powerbank.png";
+import droneImg from "../assets/drone.png";
+import keyboardImg from "../assets/keyboard.png";
+import headphoneImg from "../assets/headphone.png";
 
 const products = [
   {
@@ -13,7 +15,7 @@ const products = [
     subtitle: "Wireless Earbuds",
     price: 79.99,
     badge: "NEW",
-    emoji: "🎧",
+    image: earbudsImg,
     category: "Audio",
     description:
       "True wireless earbuds with active noise cancellation, 30-hour battery life and a compact charging case.",
@@ -24,7 +26,7 @@ const products = [
     subtitle: "Smartwatch",
     price: 149.99,
     badge: "BESTSELLER",
-    emoji: "⌚",
+    image: smartwatchImg,
     category: "Smart Watches",
     description:
       "Track workouts, heart rate and sleep with a bright AMOLED display and 7-day battery life.",
@@ -36,7 +38,7 @@ const products = [
     price: 89.99,
     oldPrice: 119.99,
     badge: "SALE",
-    emoji: "🔊",
+    image: speakerImg,
     category: "Audio",
     description:
       "Waterproof Bluetooth speaker with deep bass and 12 hours of non-stop playtime.",
@@ -47,7 +49,7 @@ const products = [
     subtitle: "Gaming Mouse",
     price: 39.99,
     oldPrice: 59.99,
-    emoji: "🖱️",
+    image: mouseImg,
     category: "Accessories",
     description:
       "Ergonomic gaming mouse with RGB lighting, 16,000 DPI sensor and programmable buttons.",
@@ -57,7 +59,7 @@ const products = [
     name: "VoltBank 20K",
     subtitle: "Power Bank",
     price: 49.99,
-    emoji: "🔋",
+    image: powerbankImg,
     category: "Power Solutions",
     description:
       "20,000 mAh fast-charging power bank that can charge a phone up to five times.",
@@ -68,7 +70,7 @@ const products = [
     subtitle: "Camera Drone",
     price: 299.99,
     badge: "NEW",
-    emoji: "🚁",
+    image: droneImg,
     category: "Drones & Cameras",
     description:
       "Foldable 4K camera drone with 3-axis gimbal and 30 minutes of flight time.",
@@ -78,7 +80,7 @@ const products = [
     name: "TypeFlow K2",
     subtitle: "Mechanical Keyboard",
     price: 69.99,
-    emoji: "⌨️",
+    image: keyboardImg,
     category: "Accessories",
     description:
       "Compact backlit mechanical keyboard with hot-swappable switches and a durable aluminium frame.",
@@ -90,7 +92,7 @@ const products = [
     price: 129.99,
     oldPrice: 159.99,
     badge: "SALE",
-    emoji: "🎧",
+    image: headphoneImg,
     category: "Audio",
     description:
       "Studio-quality over-ear headphones with soft cushions and up to 40 hours of battery.",
