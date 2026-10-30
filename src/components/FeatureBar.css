@@ -1,0 +1,54 @@
+/* ===== Feature bar (free shipping, returns, payments, support) ===== */
+
+.features {
+  background: var(--white);
+  border-bottom: 1px solid #eef0f3;
+}
+
+.features__inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.features__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 16px;
+  border-right: 1px solid #eef0f3; /* thin divider between items */
+}
+
+.features__item:last-child {
+  border-right: none;
+}
+
+.features__icon {
+  font-size: 26px;
+}
+
+.features__title {
+  display: block;
+  font-size: 13px;
+}
+
+.features__text {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Two columns on tablets, one column on phones */
+@media (max-width: 800px) {
+  .features__inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .features__inner {
+    grid-template-columns: 1fr;
+  }
+  .features__item {
+    border-right: none;
+  }
+}

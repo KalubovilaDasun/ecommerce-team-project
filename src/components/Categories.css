@@ -1,0 +1,58 @@
+/* ===== Category cards (Audio, Watches, Power, Drones) ===== */
+
+.categories {
+  padding: 36px 0 20px;
+}
+
+.categories__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.category-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 125px;
+  padding: 18px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Lift the card slightly on hover */
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.category-card h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  line-height: 1.25;
+  max-width: 90px;
+}
+
+.category-card__link {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--blue-bright);
+}
+
+.category-card__emoji {
+  font-size: 64px;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.18));
+}
+
+@media (max-width: 900px) {
+  .categories__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .categories__grid {
+    grid-template-columns: 1fr;
+  }
+}

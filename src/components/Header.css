@@ -1,0 +1,99 @@
+/* ===== Header (dark top bar with logo, navigation and icons) ===== */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 24px;
+}
+
+/* Logo */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.header__logo-icon {
+  color: var(--blue-bright);
+  font-size: 28px;
+  line-height: 1;
+}
+
+/* Navigation links */
+.header__nav {
+  display: flex;
+  gap: 28px;
+}
+
+.header__link {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  color: #e5e7eb;
+}
+
+.header__link:hover {
+  color: var(--white);
+}
+
+/* Blue underline for the active page */
+.header__link--active {
+  color: var(--white);
+  border-bottom-color: var(--blue-bright);
+}
+
+/* Right side icons */
+.header__icons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header__icon {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 18px;
+  padding: 0;
+}
+
+.header__cart {
+  position: relative;
+}
+
+/* Small blue bubble showing the number of cart items */
+.header__badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--blue-bright);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hide the nav on small screens to keep the bar clean */
+@media (max-width: 860px) {
+  .header__nav {
+    display: none;
+  }
+}

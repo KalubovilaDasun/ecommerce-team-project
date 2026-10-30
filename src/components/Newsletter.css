@@ -1,0 +1,68 @@
+/* ===== Newsletter strip (blue bar with email form) ===== */
+
+.newsletter {
+  padding-bottom: 0;
+}
+
+.newsletter__box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 22px 30px;
+  background: var(--blue-bright);
+  color: var(--white);
+  border-radius: 8px 8px 0 0;
+}
+
+.newsletter__text {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.newsletter__icon {
+  font-size: 30px;
+}
+
+.newsletter__text h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.newsletter__text p {
+  margin: 2px 0 0;
+  font-size: 12px;
+}
+
+.newsletter__form {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  max-width: 480px;
+}
+
+.newsletter__form input {
+  flex: 1;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: 13px;
+  outline: none;
+}
+
+.newsletter__form button {
+  border: none;
+  border-radius: 4px;
+  padding: 0 26px;
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.newsletter__thanks {
+  margin: 0;
+  font-weight: 600;
+}

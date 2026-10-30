@@ -1,0 +1,15 @@
+/* ===== Home page wrapper ===== */
+
+.home {
+  background: var(--white);
+}
+
+/* Smooth scrolling when clicking links like "Explore Now" or "Shop Now" */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Keep anchored sections from hiding under the sticky header */
+.home section[id] {
+  scroll-margin-top: 80px;
+}
