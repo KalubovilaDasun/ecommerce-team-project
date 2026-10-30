@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Profile.css';
 import { 
   FaUser, FaHeart, FaShoppingBag, FaMapMarkerAlt, FaStar, FaBell, 
   FaShieldAlt, FaCheckCircle, FaEnvelope, FaPhone, FaLock, FaCog, 
-  FaQuestionCircle, FaChevronRight, FaTruck, FaUndo, FaHeadset, FaSave 
+  FaQuestionCircle, FaChevronRight, FaTruck, FaUndo, FaHeadset, FaSave,
+  FaCamera
 } from 'react-icons/fa';
 
 const Profile = () => {
+  const [profileImage, setProfileImage] = useState(null);
+  
+  // නම සහ ලිපිනය (Location) තබා ගැනීමට States
+  const [userName, setUserName] = useState("John Doe");
+  const [userLocation, setUserLocation] = useState("New York, USA");
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setProfileImage(imageUrl);
+    }
+  };
+
+  const defaultAvatar = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";
+
   return (
     <div className="profile-page">
-      {/* Top Dark Header */}
       <div className="profile-header-section">
         <div className="header-content-wrapper">
           <span className="profile-breadcrumb">MY ACCOUNT</span>
@@ -18,7 +34,6 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Main 3-Column Layout */}
       <div className="profile-main-container">
         
         {/* Left Sidebar */}
@@ -43,12 +58,29 @@ const Profile = () => {
 
         {/* Center Main Content */}
         <div className="profile-content-center">
+          
           {/* User Banner */}
           <div className="user-banner">
-            <img src="https://i.pravatar.cc/150?img=5" alt="User Avatar" className="user-avatar" />
+            <div className="profile-image-container">
+              <label htmlFor="profile-upload" className="profile-image-label">
+                <img src={profileImage ? profileImage : defaultAvatar} alt="User Avatar" className="user-avatar" />
+                <div className="image-overlay">
+                  <FaCamera className="camera-icon" />
+                </div>
+              </label>
+              <input 
+                type="file" 
+                id="profile-upload" 
+                accept="image/*" 
+                onChange={handleImageChange} 
+                style={{ display: 'none' }} 
+              />
+            </div>
+            
             <div className="user-banner-info">
-              <h2>Sara Tancredi <FaCheckCircle className="verified-icon" /></h2>
-              <p><FaMapMarkerAlt /> New York, USA</p>
+              {/* Dynamic Name සහ Location මෙහි දිස්වේ */}
+              <h2>{userName || "User Name"} <FaCheckCircle className="verified-icon" /></h2>
+              <p><FaMapMarkerAlt /> {userLocation || "Add Location"}</p>
             </div>
           </div>
 
@@ -56,18 +88,25 @@ const Profile = () => {
           <div className="info-card">
             <h3><FaUser className="section-icon" /> Personal Information</h3>
             <div className="form-grid">
+              
               <div className="input-group">
                 <label>Full Name</label>
                 <div className="input-with-icon">
                   <FaUser className="input-icon" />
-                  <input type="text" defaultValue="Sara Tancredi" />
+                  <input 
+                    type="text" 
+                    value={userName} 
+                    onChange={(e) => setUserName(e.target.value)} 
+                    placeholder="Enter your name" 
+                  />
                 </div>
               </div>
+
               <div className="input-group">
                 <label>Email Address</label>
                 <div className="input-with-icon">
                   <FaEnvelope className="input-icon" />
-                  <input type="email" defaultValue="Sara.Tancredi@gmail.com" />
+                  <input type="email" defaultValue="user@example.com" />
                 </div>
               </div>
               <div className="input-group">
@@ -77,13 +116,21 @@ const Profile = () => {
                   <input type="text" defaultValue="(+98) 9123728167" />
                 </div>
               </div>
+              
               <div className="input-group">
                 <label>Location</label>
                 <div className="input-with-icon">
                   <FaMapMarkerAlt className="input-icon" />
-                  <input type="text" placeholder="e.g. New York, USA" />
+                  {/* මෙම Input එක මඟින් Banner එකේ Location වෙනස් වේ */}
+                  <input 
+                    type="text" 
+                    value={userLocation} 
+                    onChange={(e) => setUserLocation(e.target.value)} 
+                    placeholder="e.g. New York, USA" 
+                  />
                 </div>
               </div>
+              
               <div className="input-group">
                 <label>Postal Code</label>
                 <div className="input-with-icon">
@@ -161,24 +208,6 @@ const Profile = () => {
                   <span className="status shipped">Shipped</span>
                 </div>
                 <div className="order-price">$149.00 <FaChevronRight className="arrow-icon" /></div>
-              </div>
-              <div className="order-item">
-                <div className="order-img-box"><img src="https://via.placeholder.com/60" alt="Product" /></div>
-                <div className="order-info">
-                  <h4>SLIM COMBO For iPad</h4>
-                  <p>28 Sep 2024</p>
-                  <span className="status delivered">Delivered</span>
-                </div>
-                <div className="order-price">$119.99 <FaChevronRight className="arrow-icon" /></div>
-              </div>
-              <div className="order-item">
-                <div className="order-img-box"><img src="https://via.placeholder.com/60" alt="Product" /></div>
-                <div className="order-info">
-                  <h4>BoomMate Speaker</h4>
-                  <p>18 Sep 2024</p>
-                  <span className="status delivered">Delivered</span>
-                </div>
-                <div className="order-price">$89.00 <FaChevronRight className="arrow-icon" /></div>
               </div>
             </div>
           </div>
