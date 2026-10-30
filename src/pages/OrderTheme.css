@@ -1,0 +1,209 @@
+/* General Theme Container - matches the light background from the image */
+.theme-page-container {
+  min-height: 80vh;
+  background-color: #f5f7fa; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* White cards with subtle shadow matching the checkout boxes */
+.theme-content-box {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+}
+
+.theme-title {
+  color: #111111; 
+  font-size: 24px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.theme-subtitle {
+  color: #555555;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+/* Order Summary Box - matches the summary card in the image */
+.order-summary-box {
+  background: #ffffff;
+  border: 1px solid #e5e8eb;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #555555;
+  font-size: 14px;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #e5e8eb;
+  margin: 15px 0;
+}
+
+.total-row {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 0;
+}
+
+/* Primary Button - matches the bright blue "Continue" button in the image */
+.btn-theme-primary {
+  background: #0066ff; 
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-theme-primary:hover {
+  background: #0052cc;
+}
+
+/* Outline Button - for returning to home */
+.btn-theme-outline {
+  background: transparent;
+  color: #0066ff;
+  border: 1px solid #ddd;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s;
+}
+
+.btn-theme-outline:hover {
+  border-color: #0066ff;
+  background: #f0f7ff;
+}
+
+/* Tracking Steps (Matching the stepper style from checkout) */
+.track-box {
+  max-width: 600px;
+}
+
+.tracking-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px 0;
+}
+
+.track-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #888888;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.track-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #888888;
+}
+
+/* Active/Completed states using the bright blue */
+.track-step.completed { color: #111111; }
+.track-step.completed .track-icon { background: #0066ff; color: #ffffff; }
+
+.track-step.active { color: #0066ff; font-weight: 600; }
+.track-step.active .track-icon { background: #0066ff; color: #ffffff; box-shadow: 0 0 0 4px #cce0ff; }
+
+.track-line {
+  flex: 1;
+  height: 2px;
+  background: #0066ff;
+  margin: 0 15px;
+  margin-bottom: 25px;
+}
+.track-line.pending { background: #eeeeee; }
+
+/* ---------------- Thank You Animation ---------------- */
+/* Matches the dark blue header background for the overlay */
+.animation-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 4, 40, 0.85); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.success-modal {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  transform: scale(0);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s forwards;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.success-icon {
+  font-size: 60px;
+  color: #0066ff; /* Blue icon to match the theme */
+  margin-bottom: 20px;
+  animation: scaleUp 0.5s ease-in-out 0.6s both;
+}
+
+.success-modal h2 {
+  color: #111111;
+  margin: 0 0 10px 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.success-modal p {
+  color: #555555;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleUp {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
