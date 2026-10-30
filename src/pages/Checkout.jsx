@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Checkout.css';
 import { FaCcVisa, FaCcMastercard, FaPaypal, FaUniversity, FaMoneyBillAlt, FaLock, FaCheckCircle } from 'react-icons/fa';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 
-// ඔබගේ CartContext ගොනුව ඇති නිවැරදි ස්ථානය මෙහි ලබා දෙන්න
-import { CartContext } from '../context/CartContext.jsx';
+// කණ්ඩායමේ ක්‍රමයට අනුව useCart import කිරීම
+import { useCart } from '../context/CartContext.jsx';
 
 const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState('card');
@@ -13,17 +13,18 @@ const Checkout = () => {
   
   const navigate = useNavigate();
   
-  // CartContext හරහා දත්ත ලබා ගැනීම
-  const { cartItems, cartTotal } = useContext(CartContext);
+  // useCart හරහා දත්ත ලබා ගැනීම
+  const { items } = useCart();
 
-  // මිල ගණන් ගණනය කිරීම (උදාහරණයක් ලෙස 5% ක බද්දක්)
-  const subtotal = cartTotal ? cartTotal : 0;
-  const tax = subtotal * 0.05;
+  // Cart එකේ මුළු මුදල ගණනය කිරීම (Context එකේ cartTotal නැති නිසා මෙහි ගණනය කරමු)
+  const cartTotal = items ? items.reduce((sum, item) => sum + (item.price * item.qty), 0) : 0;
+  
+  const subtotal = cartTotal;
+  const tax = subtotal * 0.05; // 5% Tax
   const finalTotal = subtotal + tax;
 
   return (
     <div className="checkout-container">
-      {/* Hero Header Section */}
       <div className="checkout-header">
         <div className="header-content">
           <span className="secure-badge">SECURE CHECKOUT</span>
@@ -32,11 +33,8 @@ const Checkout = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="checkout-main">
-        {/* Left Column: Form Area */}
         <div className="checkout-left">
-          {/* Stepper */}
           <div className="stepper">
             <div className="step active"><span className="step-num">1</span> Payment</div>
             <div className="step-line"></div>
@@ -74,7 +72,6 @@ const Checkout = () => {
               </label>
             </div>
 
-            {/* Card Form */}
             {paymentMethod === 'card' && (
               <div className="card-form-container">
                 <div className="card-form">
@@ -107,7 +104,6 @@ const Checkout = () => {
               </div>
             )}
 
-            {/* Billing Address */}
             <div className="billing-section">
               <h3>Billing Address</h3>
               <p className="subtitle">Same as shipping address</p>
@@ -127,12 +123,13 @@ const Checkout = () => {
               <button className="btn-back" onClick={() => navigate(-1)}>
                 <MdOutlineKeyboardBackspace /> Back
               </button>
-              <button className="btn-continue">Place Order &rarr;</button>
+              <button className="btn-continue" onClick={() => navigate('/order-confirmation')}>
+                Continue &rarr;
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Order Summary */}
         <div className="checkout-right">
           <div className="summary-card">
             <div className="summary-header">
@@ -146,10 +143,9 @@ const Checkout = () => {
               <div className="cost-row"><span>Tax (5%)</span><span>$ {tax.toFixed(2)}</span></div>
             </div>
 
-            {/* Dynamic Cart Items */}
             <div className="cart-items">
-              {cartItems && cartItems.length > 0 ? (
-                cartItems.map((item, index) => (
+              {items && items.length > 0 ? (
+                items.map((item, index) => (
                   <div className="cart-item" key={index}>
                     <img 
                       src={item.image || item.img} 
@@ -160,8 +156,8 @@ const Checkout = () => {
                       <h4>{item.name}</h4>
                       <p>{item.color || 'Default'}</p>
                       <div className="item-price-row">
-                        <span>x {item.quantity || 1}</span>
-                        <strong>$ {(item.price * (item.quantity || 1)).toFixed(2)}</strong>
+                        <span>x {item.qty || 1}</span>
+                        <strong>$ {(item.price * (item.qty || 1)).toFixed(2)}</strong>
                       </div>
                     </div>
                   </div>

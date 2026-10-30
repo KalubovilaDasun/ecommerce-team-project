@@ -1,22 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CartContext } from '../context/CartContext.jsx';
+import { useCart } from '../context/CartContext.jsx';
 import { FaCheckCircle } from 'react-icons/fa';
 import './OrderTheme.css';
 
 const OrderConfirmation = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const navigate = useNavigate();
-  const { cartTotal } = useContext(CartContext);
+  
+  const { items } = useCart();
 
-  // මිල ගණන් සැකසීම (Shipping Fee $15 ලෙස සලකා ඇත)
-  const subtotal = cartTotal ? cartTotal : 0;
+  // මුළු මුදල මෙහිද ගණනය කිරීම
+  const cartTotal = items ? items.reduce((sum, item) => sum + (item.price * item.qty), 0) : 0;
+  
+  const subtotal = cartTotal;
   const shippingFee = subtotal > 0 ? 15.00 : 0.00;
   const finalTotal = subtotal + shippingFee;
 
   const handleConfirm = () => {
     setIsConfirmed(true);
-    // තත්පර 3කට පසු Track Order පිටුවට යොමු කිරීම
     setTimeout(() => {
       navigate('/track-order');
     }, 3000);
@@ -24,7 +26,6 @@ const OrderConfirmation = () => {
 
   return (
     <div className="theme-page-container">
-      {/* Thank You Animation Overlay */}
       {isConfirmed && (
         <div className="animation-overlay">
           <div className="success-modal">
