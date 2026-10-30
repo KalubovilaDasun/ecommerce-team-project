@@ -1,0 +1,57 @@
+/* ===== Two-column banners (New Arrivals / Best Sellers) ===== */
+
+.pair {
+  padding: 10px 0 30px;
+}
+
+.pair__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.pair__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 30px;
+  border-radius: var(--radius);
+  min-height: 150px;
+}
+
+/* Pastel background colors */
+.pair__card--blue {
+  background: #e4e8fb;
+}
+.pair__card--green {
+  background: #e3f4ef;
+}
+
+.pair__card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.pair__card p {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: #374151;
+  max-width: 150px;
+}
+
+.pair__card a {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue-bright);
+}
+
+.pair__emoji {
+  font-size: 84px;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.2));
+}
+
+@media (max-width: 700px) {
+  .pair__grid {
+    grid-template-columns: 1fr;
+  }
+}
