@@ -4,9 +4,10 @@ import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import Checkout from "./pages/Checkout.jsx";
-// අලුත් පිටු 2 import කිරීම
+// gavindu 
 import OrderConfirmation from "./pages/OrderConfirmation.jsx";
 import TrackOrder from "./pages/TrackOrder.jsx";
+import Profile from "./pages/Profile.jsx";
 
 // Root component: shared layout (header + footer) and page routes.
 export default function App() {
@@ -20,6 +21,8 @@ export default function App() {
           {/* අලුත් පිටු 2 සඳහා Routes ලබා දීම */}
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/track-order" element={<TrackOrder />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
       <Footer />

@@ -48,9 +48,12 @@ export default function Header() {
           <button className="header__icon" aria-label="Search">
             🔍
           </button>
-          <button className="header__icon" aria-label="Account">
+          
+          {/* Account Profile Link */}
+          <Link to="/profile" className="header__icon" aria-label="Account">
             👤
-          </button>
+          </Link>
+
           <Link to="/cart" className="header__icon header__cart" aria-label="Cart">
             🛒
             {cartCount > 0 && <span className="header__badge">{cartCount}</span>}
