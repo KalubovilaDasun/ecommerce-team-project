@@ -13,10 +13,19 @@ export default function Home() {
     <div className="home">
       <Hero />
       <FeatureBar />
-      <Categories />
-      <ProductList />
-      <PromoBanner />
-      <BannerPair />
+      
+      <section id="shop">
+        <Categories />
+        <ProductList />
+      </section>
+      
+      <section id="new-arrivals">
+        <PromoBanner />
+      </section>
+      
+      <section id="top-picks">
+        <BannerPair />
+      </section>
     </div>
   );
 }
