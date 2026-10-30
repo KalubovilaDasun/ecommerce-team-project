@@ -1,27 +1,136 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Checkout.css';
-import { FaCcVisa, FaCcMastercard, FaPaypal, FaUniversity, FaMoneyBillAlt, FaLock, FaCheckCircle } from 'react-icons/fa';
+import { FaCcVisa, FaCcMastercard, FaPaypal, FaUniversity, FaMoneyBillAlt, FaLock, FaCheckCircle, FaExclamationCircle, FaCcAmex, FaCcDiscover, FaCreditCard } from 'react-icons/fa';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
-
-// කණ්ඩායමේ ක්‍රමයට අනුව useCart import කිරීම
 import { useCart } from '../context/CartContext.jsx';
 
 const Checkout = () => {
-  const [paymentMethod, setPaymentMethod] = useState('card');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [paymentMethod, setPaymentMethod] = useState('');
   const [billingAddress, setBillingAddress] = useState('same');
+  const [cardDetails, setCardDetails] = useState({ number: '', name: '', expiry: '', cvv: '' });
+  
+  const [cardType, setCardType] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   
   const navigate = useNavigate();
-  
-  // useCart හරහා දත්ත ලබා ගැනීම
   const { items } = useCart();
 
-  // Cart එකේ මුළු මුදල ගණනය කිරීම (Context එකේ cartTotal නැති නිසා මෙහි ගණනය කරමු)
   const cartTotal = items ? items.reduce((sum, item) => sum + (item.price * item.qty), 0) : 0;
-  
   const subtotal = cartTotal;
-  const tax = subtotal * 0.05; // 5% Tax
+  const tax = subtotal * 0.05;
   const finalTotal = subtotal + tax;
+
+  const handleCardNumberChange = (e) => {
+    const value = e.target.value;
+    setCardDetails({ ...cardDetails, number: value });
+
+    const cleanNum = value.replace(/\s+/g, '');
+    
+    if (/^4/.test(cleanNum)) {
+      setCardType('Visa');
+    } else if (/^5[1-5]/.test(cleanNum)) {
+      setCardType('Mastercard');
+    } else if (/^3[47]/.test(cleanNum)) {
+      setCardType('Amex');
+    } else if (/^6/.test(cleanNum)) {
+      setCardType('Discover');
+    } else {
+      setCardType('');
+    }
+  };
+
+  const getCardIcon = () => {
+    switch (cardType) {
+      case 'Visa': return <FaCcVisa color="#1a1f71" size={28} />;
+      case 'Mastercard': return <FaCcMastercard color="#eb001b" size={28} />;
+      case 'Amex': return <FaCcAmex color="#2e77bc" size={28} />;
+      case 'Discover': return <FaCcDiscover color="#ff6000" size={28} />;
+      default: return <FaCreditCard color="#ccc" size={28} />;
+    }
+  };
+
+  const handleContinue = () => {
+    if (!paymentMethod) {
+      setErrorMsg('Please select a payment method to continue.');
+      return;
+    }
+    
+    if (paymentMethod === 'card') {
+      if (!cardDetails.number || !cardDetails.name || !cardDetails.expiry || !cardDetails.cvv) {
+        setErrorMsg('Please fill in all credit/debit card details.');
+        return;
+      }
+
+      const cleanCardNum = cardDetails.number.replace(/\s+/g, '');
+      const isAmex = cardType === 'Amex';
+      const expectedLength = isAmex ? 15 : 16;
+      
+      // 1. ඉලක්කම් ගණන පරීක්ෂා කිරීම
+      if (cleanCardNum.length !== expectedLength) {
+        setErrorMsg(`Invalid ${cardType || 'Card'} Number. It must be exactly ${expectedLength} digits.`);
+        return;
+      }
+
+      // 2. Luhn Algorithm (කාඩ්පතේ සැබෑ වලංගුතාව පරීක්ෂා කිරීම)
+      const validateLuhn = (cardNumber) => {
+        let sum = 0;
+        let isSecond = false;
+        for (let i = cardNumber.length - 1; i >= 0; i--) {
+          let d = parseInt(cardNumber[i], 10);
+          if (isSecond) {
+            d = d * 2;
+            if (d > 9) d -= 9;
+          }
+          sum += d;
+          isSecond = !isSecond;
+        }
+        return sum % 10 === 0;
+      };
+
+      if (!validateLuhn(cleanCardNum)) {
+        setErrorMsg(`The ${cardType || 'Card'} number entered is mathematically invalid (Fake Card).`);
+        return;
+      }
+
+      // 3. කල් ඉකුත්වීමේ දිනය පරීක්ෂා කිරීම
+      if (!/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(cardDetails.expiry)) {
+        setErrorMsg('Invalid Expiry Date. Please use MM/YY format (e.g., 12/25).');
+        return;
+      }
+
+      // 4. CVV අංකය පරීක්ෂා කිරීම
+      const expectedCvvLength = isAmex ? 4 : 3;
+      if (cardDetails.cvv.length !== expectedCvvLength) {
+        setErrorMsg(`Invalid CVV for ${cardType || 'Card'}. It must be ${expectedCvvLength} digits.`);
+        return;
+      }
+    }
+
+    setErrorMsg('');
+    navigate('/order-confirmation');
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="theme-page-container">
+        <div className="theme-content-box" style={{ maxWidth: '450px' }}>
+          <h2 className="theme-title">Account Login Required</h2>
+          <p className="theme-subtitle">Please log in to your account to place this order securely.</p>
+          
+          <button className="btn-theme-primary" onClick={() => setIsLoggedIn(true)} style={{ marginBottom: '15px' }}>
+            Log In
+          </button>
+          
+          <button className="btn-theme-outline" style={{ width: '100%', marginTop: '0' }}>
+            Register New Account
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="checkout-container">
@@ -48,6 +157,12 @@ const Checkout = () => {
           <div className="payment-section">
             <h2>Payment Method</h2>
             <p className="subtitle">Choose your preferred payment method</p>
+
+            {errorMsg && (
+              <div style={{ backgroundColor: '#ffebee', color: '#c62828', padding: '12px', borderRadius: '6px', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
+                <FaExclamationCircle /> {errorMsg}
+              </div>
+            )}
             
             <div className="payment-options">
               <label className={`pay-option ${paymentMethod === 'card' ? 'active' : ''}`}>
@@ -77,28 +192,30 @@ const Checkout = () => {
                 <div className="card-form">
                   <div className="input-group full-width">
                     <label>Card Number</label>
-                    <input type="text" placeholder="1234 4567 7890 1234" />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#fff', border: '1px solid #ccc', padding: '0 10px', borderRadius: '6px' }}>
+                      <input 
+                        type="text" 
+                        placeholder="1234 4567 7890 1234" 
+                        value={cardDetails.number} 
+                        onChange={handleCardNumberChange} 
+                        style={{ border: 'none', padding: '12px 0', flex: 1, outline: 'none' }}
+                      />
+                      {getCardIcon()}
+                    </div>
                   </div>
                   <div className="input-group">
                     <label>Card Holder Name</label>
-                    <input type="text" placeholder="John Doe" />
+                    <input type="text" placeholder="John Doe" value={cardDetails.name} onChange={(e) => setCardDetails({...cardDetails, name: e.target.value})} />
                   </div>
                   <div className="form-row">
                     <div className="input-group">
                       <label>Expiry Date</label>
-                      <input type="text" placeholder="MM/YY" />
+                      <input type="text" placeholder="MM/YY" value={cardDetails.expiry} onChange={(e) => setCardDetails({...cardDetails, expiry: e.target.value})} />
                     </div>
                     <div className="input-group">
                       <label>CVV</label>
-                      <input type="text" placeholder="123" />
+                      <input type="password" placeholder={cardType === 'Amex' ? '1234' : '123'} value={cardDetails.cvv} onChange={(e) => setCardDetails({...cardDetails, cvv: e.target.value})} />
                     </div>
-                  </div>
-                </div>
-                <div className="card-visual">
-                  <div className="mock-credit-card">
-                    <div className="chip"></div>
-                    <div className="card-dots">.... .... ....</div>
-                    <FaCcVisa className="card-visa-logo" size={40} />
                   </div>
                 </div>
               </div>
@@ -123,7 +240,7 @@ const Checkout = () => {
               <button className="btn-back" onClick={() => navigate(-1)}>
                 <MdOutlineKeyboardBackspace /> Back
               </button>
-              <button className="btn-continue" onClick={() => navigate('/order-confirmation')}>
+              <button className="btn-continue" onClick={handleContinue}>
                 Continue &rarr;
               </button>
             </div>
@@ -147,11 +264,7 @@ const Checkout = () => {
               {items && items.length > 0 ? (
                 items.map((item, index) => (
                   <div className="cart-item" key={index}>
-                    <img 
-                      src={item.image || item.img} 
-                      alt={item.name} 
-                      style={{ width: '70px', height: '70px', borderRadius: '8px', objectFit: 'cover', backgroundColor: '#f0f0f0' }} 
-                    />
+                    <img src={item.image || item.img} alt={item.name} style={{ width: '70px', height: '70px', borderRadius: '8px', objectFit: 'cover', backgroundColor: '#f0f0f0' }} />
                     <div className="item-details">
                       <h4>{item.name}</h4>
                       <p>{item.color || 'Default'}</p>
@@ -166,7 +279,7 @@ const Checkout = () => {
                 <p style={{ fontSize: '14px', color: '#888' }}>ඔබගේ Cart එකෙහි කිසිදු භාණ්ඩයක් නොමැත.</p>
               )}
             </div>
-
+            
             <div className="secure-payment-badge">
               <div className="badge-text">
                 <FaLock className="lock-icon" />
