@@ -26,7 +26,6 @@ export default function App() {
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/track-order" element={<TrackOrder />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
       <Footer />
