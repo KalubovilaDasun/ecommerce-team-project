@@ -91,9 +91,61 @@
   justify-content: center;
 }
 
-/* Hide the nav on small screens to keep the bar clean */
+/* Mobile Toggle Button - Hidden on Desktop */
+.header__toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* Mobile Responsive Styles */
 @media (max-width: 860px) {
+  .header__inner {
+    position: relative;
+    justify-content: space-between;
+  }
+
+  .header__toggle {
+    display: block;
+    order: 2;
+  }
+
+  .header__icons {
+    order: 3;
+  }
+
   .header__nav {
-    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--navy); 
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    gap: 15px;
+    transform: translateY(-150%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    z-index: 99;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .header__nav--open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .header__link {
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
   }
 }
