@@ -3,6 +3,8 @@ import { CartProvider } from "./context/CartContext.jsx";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
+import Checkout from "./pages/Checkout.jsx";
+
 
 // Root component: shared layout (header + footer) and page routes.
 // Teammates add their routes below when their feature is ready:
@@ -16,6 +18,7 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </main>
       <Footer />
