@@ -1,3 +1,4 @@
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import { Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext.jsx";
 import Header from "./components/Header.jsx";
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/track-order" element={<TrackOrder />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </main>
       <Footer />

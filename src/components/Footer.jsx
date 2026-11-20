@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Newsletter from "./Newsletter.jsx";
 import "./Footer.css";
 
@@ -16,6 +17,12 @@ const columns = [
     links: ["About Us", "Our Blog", "Careers", "Privacy Policy", "Terms of Service"],
   },
 ];
+
+const linkPaths = {
+  "Privacy Policy": "/privacy-policy",
+  "Contact Us": "/contact",
+  "Track Your Order": "/track-order",
+};
 
 export default function Footer() {
   return (
@@ -49,7 +56,11 @@ export default function Footer() {
               <ul>
                 {col.links.map((link) => (
                   <li key={link}>
-                    <a href="#">{link}</a>
+                    {linkPaths[link] ? (
+                      <Link to={linkPaths[link]}>{link}</Link>
+                    ) : (
+                      <a href="#">{link}</a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -76,4 +87,4 @@ export default function Footer() {
       </footer>
     </>
   );
-}
+}git
