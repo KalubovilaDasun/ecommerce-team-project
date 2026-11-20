@@ -453,3 +453,18 @@
   color: #ccc;
   font-size: 12px;
 }
+
+@media (max-width: 768px) {
+ 
+  .profile-container {
+    flex-direction: column; 
+    gap: 20px;
+  }
+
+
+  .profile-sidebar,
+  .profile-content {
+    width: 100%;
+    max-width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 import Newsletter from "./Newsletter.jsx";
 import "./Footer.css";
 
-// Footer link columns
+// Data array for dynamically rendering footer link columns
 const columns = [
   {
     title: "Shop",
@@ -20,12 +20,14 @@ const columns = [
 export default function Footer() {
   return (
     <>
-      {/* Newsletter sits right above the dark footer */}
+      {/* Newsletter component placed directly above the footer */}
       <Newsletter />
 
+      {/* Main dark footer section */}
       <footer className="footer">
         <div className="container footer__grid">
-          {/* Brand block */}
+          
+          {/* Brand Information Section */}
           <div className="footer__brand">
             <div className="footer__logo">
               <span>⬢</span> GizmoHub
@@ -40,7 +42,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
+          {/* Dynamic Link Columns Generation */}
           {columns.map((col) => (
             <div key={col.title} className="footer__col">
               <h4>{col.title}</h4>
@@ -54,8 +56,8 @@ export default function Footer() {
             </div>
           ))}
 
-          {/* App download buttons */}
-          <div className="footer__col">
+          {/* Mobile App Download Buttons Section */}
+          <div className="footer__col footer__app-links">
             <h4>Download Our App</h4>
             <a href="#" className="footer__store">
               <small>Download on the</small>
@@ -66,8 +68,10 @@ export default function Footer() {
               Google Play
             </a>
           </div>
+          
         </div>
 
+        {/* Copyright Notice */}
         <p className="footer__copy">© 2026 GizmoHub. All Rights Reserved.</p>
       </footer>
     </>
